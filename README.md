@@ -15,14 +15,14 @@
 * normally runs in its own virtual environment created with `virtualenv`
 * `<virtualenvdir>/bin/activate` can set environment variables for the Django instance, such as:
 
-***
+```
 
-        export PYTHONPATH=...
-        export DJANGO_SETTINGS_MODULE=...
-        export DJANGO_SECRET_KEY=...
-        export DJANGO_DB_PASSWORD=...
+export PYTHONPATH=...
+export DJANGO_SETTINGS_MODULE=...
+export DJANGO_SECRET_KEY=...
+export DJANGO_DB_PASSWORD=...
 
-***
+```
 
 * a Django instance for a web app is created with `django-admin startproject <appname> .` while in the virtual environment
 * `django-admin startproject <appname> .` generates in the current directory `manage.py` and the directory of the app's main module which is a Python package named `<appname>`
@@ -30,17 +30,17 @@
 * the app's main module contains the Django instance's settings, the gateway URL router `urls.py`, etc.
 * initial directory structure of a Django instance:
 
-***
+```
 
-        appname/
-            manage.py
-            appname/
-                __init__.py
-                settings.py
-                urls.py
-                wsgi.py
+appname/
+    manage.py
+    appname/
+        __init__.py
+        settings.py
+        urls.py
+        wsgi.py
 
-***
+```
 
 * a Django instance is usually managed with `python manage.py ...`
 * Django is modular
@@ -108,46 +108,46 @@
 * also when defining a field, **`db_index`** argument can specify whether to create an index on the field, **`db_tablespace`** can specify a tablespace for the index, **`db_column`** argument can specify the name of the database column to use for the field, and **`editable`** can specify whether the field should be displayed in the admin site and included for validation; other keyword arguments are `error_messages`, `unique_for_date`, `unique_for_year`, `validators`
 * model field summary (fuzzy-ordered by use frequency):
 
-***
+```python
 
-        max_length    # for CharField; for file-related fields, the default is 100
-        default       # the value used when field's value is not specified (None/NULL/null/"" is a value)
-        null          # in Django, textual fields should not be null=True and should default to "" instead (except if file-related);
-                      #   often used for ForeignKey; has no effect on ManyToManyField; if null=True, then typically blank=True too
-        blank         # blank=True if None/NULL/null/"" is an acceptable value in validation (if None/NULL/null is explicitly specified);
-                      #   if blank=True, then typically null=True too
-        choices       # often used with max_length
-        unique        # uniqueness across the model's table
-        db_index      # can improve the performance of querying on that field
-        verbose_name  # mostly for the admin site
-        on_delete     # for relationship fields
+max_length    # for CharField; for file-related fields, the default is 100
+default       # the value used when field's value is not specified (None/NULL/null/"" is a value)
+null          # in Django, textual fields should not be null=True and should default to "" instead (except if file-related);
+              #   often used for ForeignKey; has no effect on ManyToManyField; if null=True, then typically blank=True too
+blank         # blank=True if None/NULL/null/"" is an acceptable value in validation (if None/NULL/null is explicitly specified);
+              #   if blank=True, then typically null=True too
+choices       # often used with max_length
+unique        # uniqueness across the model's table
+db_index      # can improve the performance of querying on that field
+verbose_name  # mostly for the admin site
+on_delete     # for relationship fields
 
-***
+```
 
 * common field types:
 
-***
+```python
 
-        CharField(max_length=...)   # short, limited-length text
-        TextField                   # arbitrary-length text
-        EmailField                  # email with validation
-        URLField
-        SlugField
-        BooleanField
-        NullBooleanField            # for boolean fields allowed to be NULL
-        IntegerField                # 4 bytes
-        BigIntegerField             # 8 bytes
-        FloatField
-        DateTimeField               # date and time; options & defaults: auto_now_add=False (creation), auto_now=False (modification)
-        DateField                   # just date (same options & defaults)
-        FileField                   # for file uploads (stored as file path relative to MEDIA_ROOT, default max_length is 100)
-        ImageField                  # like FileField but with validation
+CharField(max_length=...)   # short, limited-length text
+TextField                   # arbitrary-length text
+EmailField                  # email with validation
+URLField
+SlugField
+BooleanField
+NullBooleanField            # for boolean fields allowed to be NULL
+IntegerField                # 4 bytes
+BigIntegerField             # 8 bytes
+FloatField
+DateTimeField               # date and time; options & defaults: auto_now_add=False (creation), auto_now=False (modification)
+DateField                   # just date (same options & defaults)
+FileField                   # for file uploads (stored as file path relative to MEDIA_ROOT, default max_length is 100)
+ImageField                  # like FileField but with validation
 
-        ForeignKey                  # many-to-one relationship
-        ManyToManyField             # many-to-many relationship
-        OneToOneField               # one-to-one relationship
+ForeignKey                  # many-to-one relationship
+ManyToManyField             # many-to-many relationship
+OneToOneField               # one-to-one relationship
 
-***
+```
 
 * as a general rule, textual fields (which include file-related fields which store file paths) should not be created with `null=True` since the convention is to store empty textual data as empty strings, but it's ok to create textual fields with `blank=True`; for boolean, numeric, and time-related fields, it's ok to use `null=True` and `blank=True` (for such fields, `blank=True` usually means that `null=True` is needed too); for relationship fields, using `null=True` and `blank=True` is ok
 * Django allows for custom field types
@@ -201,20 +201,20 @@
 * the results of the evaluation of a queryset is cached so database hits are minimized for going through the same evaluated queryset multiple times
 * the evaluation of a queryset can be forced by calling `list(queryset)` on it
 
-***
+```python
 
-        ModelClass.objects.all()
-        ModelClass.objects.order_by("-created")[:5]
-        ModelClass.objects.filter(num_stars__gte=4).count()
+ModelClass.objects.all()
+ModelClass.objects.order_by("-created")[:5]
+ModelClass.objects.filter(num_stars__gte=4).count()
 
-        ModelClass.objects.filter(text_field__startswith="prefix", ...).<anothermethod>...
-                           ^      ^                      ^
-                           |      |                      |
-        manager/QuerySet method   |                      |
-        field lookup --------------                      |
-        value/expression for lookup ----------------------
+ModelClass.objects.filter(text_field__startswith="prefix", ...).<anothermethod>...
+                   ^      ^                      ^
+                   |      |                      |
+manager/QuerySet method   |                      |
+field lookup --------------                      |
+value/expression for lookup ----------------------
 
-***
+```
 
 #### Managers and Querysets
 
