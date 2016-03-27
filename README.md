@@ -357,34 +357,34 @@ rel_manager.update_or_create(...)
 * if the type of a field is `ForeignKey`, an additional field name is available for lookup, which is the field's name suffixed with `_id`
 * common field lookups:
 
-***
+```python
 
-        exact        # exact match; assumed by default if no lookup is specified for a field name
-        iexact       # case-insensitive exact match
-        contains     # containment match
-        icontains    # case-insensitive containment match
-        startswith   # starts-with match
-        istartswith  # case-insensitive starts-with match
-        endswith     # ends-with match
-        iendswith    # case-insensitive ends-with match
-        regex        # regex match with the regex flavor is that of the database used
-        iregex       # regex match, case-insensitive
-        gt           # greater-than match
-        gte          # greater-than-or-equal match
-        lt           # less-than match
-        lte          # less-than-or-equal match
-        in           # in-match against iterable alternatives, which can be a queryset, possibly narrowed to values with values("field_name")
-        range        # match against a range given by two values, inclusive
-        year         # for date and datetime fields, a year match
-        month        # for date and datetime fields, a month match, 1 (January) to 12 (December)
-        day          # for date and datetime fields, a day match
-        week_day     # for date and datetime fields, a day-of-week match, 1 (Sunday) to 7 (Saturday)
-        hour         # for datetime fields, an hour match, 0 to 23
-        minute       # for datetime fields, a minute match, 0 to 59
-        second       # for datetime fields, a second match, 0 to 59
-        isnull       # NULL match, takes either True or False
+exact        # exact match; assumed by default if no lookup is specified for a field name
+iexact       # case-insensitive exact match
+contains     # containment match
+icontains    # case-insensitive containment match
+startswith   # starts-with match
+istartswith  # case-insensitive starts-with match
+endswith     # ends-with match
+iendswith    # case-insensitive ends-with match
+regex        # regex match with the regex flavor is that of the database used
+iregex       # regex match, case-insensitive
+gt           # greater-than match
+gte          # greater-than-or-equal match
+lt           # less-than match
+lte          # less-than-or-equal match
+in           # in-match against iterable alternatives, which can be a queryset, possibly narrowed to values with values("field_name")
+range        # match against a range given by two values, inclusive
+year         # for date and datetime fields, a year match
+month        # for date and datetime fields, a month match, 1 (January) to 12 (December)
+day          # for date and datetime fields, a day match
+week_day     # for date and datetime fields, a day-of-week match, 1 (Sunday) to 7 (Saturday)
+hour         # for datetime fields, an hour match, 0 to 23
+minute       # for datetime fields, a minute match, 0 to 59
+second       # for datetime fields, a second match, 0 to 59
+isnull       # NULL match, takes either True or False
 
-***
+```
 
 * the field lookup API automatically follows relationships as far as indicated with the same `__` separator, e.g. `blog.author__name...` given that `author` is a `ForeignKey` on `Blog` model
 * to refer a an instance of the origin model in a relationship from an instance of a target model during field lookup, the origin model's lowercased name is used (**without** `_set`), e.g. `Author.objects.filter(blog__name...)`
@@ -411,11 +411,12 @@ rel_manager.update_or_create(...)
 * when `ATOMIC_REQUESTS` is `False` (default), individual view function/methods can be wrapped into transactions by decorating them with `@django.db.transaction.atomic`
 * to wrap portions of code into a transaction, `django.db.transaction.atomic` can be used as a Python context manager:
 
-***
+```python
 
-        with django.db.transaction.atomic():
-            ...
-***
+with django.db.transaction.atomic():
+    ...
+
+```
 
 * a failed transaction results in a `django.db.IntegrityError` exception (or `django.db.DatabaseError`)
 * no exception handling should take plane inside a `django.db.transaction.atomic()` block; if any, exception handling should happen around the block
