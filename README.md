@@ -208,11 +208,11 @@ ModelClass.objects.order_by("-created")[:5]
 ModelClass.objects.filter(num_stars__gte=4).count()
 
 ModelClass.objects.filter(text_field__startswith="prefix", ...).<anothermethod>...
-                   ^      ^                      ^
-                   |      |                      |
-manager/QuerySet method   |                      |
-field lookup --------------                      |
-value/expression for lookup ----------------------
+#                  ^      ^                      ^
+#                  |      |                      |
+# manager/QuerySet method |                      |
+# field lookup ------------                      |
+# value/expression for lookup --------------------
 
 ```
 
