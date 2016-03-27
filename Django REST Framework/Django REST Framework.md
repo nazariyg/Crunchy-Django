@@ -33,16 +33,16 @@
 * in serializers, reverse relationship fields are not serialized unless explicitly declared
 * for serializers, the order of automatic method/logic invocation is roughly as follows:
 
-***
+```
 
-        is_valid
-          validate_<fieldname>
-          validate
-          Meta.validators
-        create/update
-        save
+is_valid
+  validate_<fieldname>
+  validate
+  Meta.validators
+create/update
+save
 
-***
+```
 
 * `is_valid` method can take `raise_exception` argument
 * `save` method can take keyword arguments that will be assigned to the same-named model fields
