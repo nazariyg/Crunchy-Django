@@ -292,62 +292,63 @@ last()
 * from an instance of a target model that is in a relationship with an origin model where `ForeignKey` or `ManyToManyField` is defined, related model instances can be accessed in the "reverse" way with automatically generated `<relatedmodelclass>_set` attribute (lowercased name of the reverse-related model suffixed with `_set`), e.g. `author.blogentry_set`
 * the methods of a `ManyToManyField`'s manager for forward-related model instances and the methods of a manager for reverse-related instances in relationships defined with `ForeignKey` and `ManyToManyField`:
 
-***
-        rel_manager = # model_instance.relationship_field (forward)
-        # or
-        rel_manager = # model_instance.<relatedmodelclass>_set (reverse)
+```python
 
-        # methods that return querysets:
+rel_manager = # model_instance.relationship_field (forward)
+# or
+rel_manager = # model_instance.<relatedmodelclass>_set (reverse)
 
-        rel_manager.all()
-        rel_manager.order_by(..., ...)
-        rel_manager.order_by("?")
-        rel_manager.filter(...)
-        rel_manager.exclude(...)
-        rel_manager.distinct()
-        rel_manager.defer(...)
-        rel_manager.only(...)
-        rel_manager.values(..., ...)
-        rel_manager.values_list(..., ...)
-        rel_manager.select_related(...)
-        rel_manager.prefetch_related(...)
-        rel_manager.annotate(...)
-        rel_manager.select_for_update()
-        rel_manager.dates(...)
-        rel_manager.datetimes(...)
-        rel_manager.using(...)
-        rel_manager.raw()
-        rel_manager.none()
+# methods that return querysets:
 
-        # methods that don't return querysets:
+rel_manager.all()
+rel_manager.order_by(..., ...)
+rel_manager.order_by("?")
+rel_manager.filter(...)
+rel_manager.exclude(...)
+rel_manager.distinct()
+rel_manager.defer(...)
+rel_manager.only(...)
+rel_manager.values(..., ...)
+rel_manager.values_list(..., ...)
+rel_manager.select_related(...)
+rel_manager.prefetch_related(...)
+rel_manager.annotate(...)
+rel_manager.select_for_update()
+rel_manager.dates(...)
+rel_manager.datetimes(...)
+rel_manager.using(...)
+rel_manager.raw()
+rel_manager.none()
 
-        rel_manager.get(...)
-        rel_manager.count(...)
-        rel_manager.exists(...)
-        rel_manager.latest(...)
-        rel_manager.earliest(...)
-        rel_manager.aggregate(...)
-        rel_manager.update(...)
-        rel_manager.delete()
-        rel_manager.in_bulk(...)
-        rel_manager.first()
-        rel_manager.last()
+# methods that don't return querysets:
 
-        rel_manager.clear()             # disassociates all (if allowed by null=True)
+rel_manager.get(...)
+rel_manager.count(...)
+rel_manager.exists(...)
+rel_manager.latest(...)
+rel_manager.earliest(...)
+rel_manager.aggregate(...)
+rel_manager.update(...)
+rel_manager.delete()
+rel_manager.in_bulk(...)
+rel_manager.first()
+rel_manager.last()
 
-        # and if it's not a many-to-many relationship through a custom model:
+rel_manager.clear()             # disassociates all (if allowed by null=True)
 
-        rel_manager.create(...)         # creates a new related instance and saves it
-        rel_manager.add(..., ...)       # associates one or more instances, possibly by their primary key values
-        rel_manager = [..., ...]        # same but with overriding; in case of ForeignKey, overridden only if null=True, added otherwise;
-                                        #   any iterable and its elements can be primary key values
-        rel_manager.remove(..., ...)    # disassociates one or more instances, possibly by their primary key values (if allowed by null=True)
+# and if it's not a many-to-many relationship through a custom model:
 
-        rel_manager.bulk_create(...)
-        rel_manager.get_or_create(...)
-        rel_manager.update_or_create(...)
+rel_manager.create(...)         # creates a new related instance and saves it
+rel_manager.add(..., ...)       # associates one or more instances, possibly by their primary key values
+rel_manager = [..., ...]        # same but with overriding; in case of ForeignKey, overridden only if null=True, added otherwise;
+                                #   any iterable and its elements can be primary key values
+rel_manager.remove(..., ...)    # disassociates one or more instances, possibly by their primary key values (if allowed by null=True)
 
-***
+rel_manager.bulk_create(...)
+rel_manager.get_or_create(...)
+rel_manager.update_or_create(...)
+
+```
 
 #### Field Lookups
 
