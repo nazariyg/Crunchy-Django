@@ -220,52 +220,52 @@ ModelClass.objects.filter(text_field__startswith="prefix", ...).<anothermethod>.
 
 * the methods of a model's manager for initial querying **and** the QuerySet methods for query chaining:
 
-***
+```python
 
-        # methods that return querysets:
+# methods that return querysets:
 
-        all()                  # all instances (in e.g. ModelClass.objects.filter this method is implicit), also used for queryset copying
-        order_by(..., ...)     # all instances ordered by fields of the given names, ascending, or descending with "-" in front
-        order_by("?")          # randomize at the database level
-        filter(...)            # only with instances matching given field lookups
-        exclude(...)           # without instances matching given field lookups
-        reverse()              # reverse order
-        distinct()             # distinct instances only (doesn't work in some cases involving order_by)
-        defer(...)             # retrieve all field values except for the fields with the given names, retrieve deferred fields on-demand
-        only(...)              # defer all but the fields with the given names
-        values(..., ...)       # (ValuesQuerySet) the values of all fields or of the fields with the given names, stored in dictionaries
-        values_list(..., ...)  # same but returning tuples
-        select_related(...)    # returns a queryset that will let "follow" ForeignKey fields without database hits; may increase performance
-        prefetch_related(...)  # similar to select_related but uses a different strategy
-        annotate(...)          # just for the query, creates pseudo-fields named after the given keyword arguments and with values computed by the given expressions
-        select_for_update()    # returns a queryset that will lock model instances at the row level until the end of the transaction
+all()                  # all instances (in e.g. ModelClass.objects.filter this method is implicit), also used for queryset copying
+order_by(..., ...)     # all instances ordered by fields of the given names, ascending, or descending with "-" in front
+order_by("?")          # randomize at the database level
+filter(...)            # only with instances matching given field lookups
+exclude(...)           # without instances matching given field lookups
+reverse()              # reverse order
+distinct()             # distinct instances only (doesn't work in some cases involving order_by)
+defer(...)             # retrieve all field values except for the fields with the given names, retrieve deferred fields on-demand
+only(...)              # defer all but the fields with the given names
+values(..., ...)       # (ValuesQuerySet) the values of all fields or of the fields with the given names, stored in dictionaries
+values_list(..., ...)  # same but returning tuples
+select_related(...)    # returns a queryset that will let "follow" ForeignKey fields without database hits; may increase performance
+prefetch_related(...)  # similar to select_related but uses a different strategy
+annotate(...)          # just for the query, creates pseudo-fields named after the given keyword arguments and with values computed by the given expressions
+select_for_update()    # returns a queryset that will lock model instances at the row level until the end of the transaction
 
-        dates(...)
-        datetimes(...)
-        using(...)
-        raw()
-        none()
+dates(...)
+datetimes(...)
+using(...)
+raw()
+none()
 
-        # methods that don't return querysets:
+# methods that don't return querysets:
 
-        get(...)               # returns the model instance matching given field lookups
-        count(...)             # quantity
-        exists(...)            # True if the given field lookups result in any database records
-        create(...)            # for a model's manager, creates a new instance of the model and saves it
-        latest(...)            # returns the latest object in the table, using the field of the given name or get_latest_by model metadata option
-        earliest(...)          # returns the earliest object in the table, using the field of the given name or get_earliest_by model metadata option
-        aggregate(...)         # returns a dictionary of aggregate values (averages, sums, etc) calculated over the queryset
-        update(...)            # sets fields of matching database records in bulk
-        delete()               # deletes matching database records in bulk
-        get_or_create(...)     # creates a new instance of the model if such instance does not already exist
+get(...)               # returns the model instance matching given field lookups
+count(...)             # quantity
+exists(...)            # True if the given field lookups result in any database records
+create(...)            # for a model's manager, creates a new instance of the model and saves it
+latest(...)            # returns the latest object in the table, using the field of the given name or get_latest_by model metadata option
+earliest(...)          # returns the earliest object in the table, using the field of the given name or get_earliest_by model metadata option
+aggregate(...)         # returns a dictionary of aggregate values (averages, sums, etc) calculated over the queryset
+update(...)            # sets fields of matching database records in bulk
+delete()               # deletes matching database records in bulk
+get_or_create(...)     # creates a new instance of the model if such instance does not already exist
 
-        bulk_create(...)
-        in_bulk(...)
-        update_or_create(...)
-        first()
-        last()
+bulk_create(...)
+in_bulk(...)
+update_or_create(...)
+first()
+last()
 
-***
+```
 
 * when using `get` to retrieve a single model instance and the model instance cannot be found, the query raises `ModelClass.DoesNotExist` exception (inherits from `django.core.exceptions.ObjectDoesNotExist`); conversely, when a `get` query results in more than one record, `ModelClass.MultipleObjectsReturned` exception is risen
 * instead of values for field lookups, one can use query *expressions*, e.g. `django.db.models.F("counter_field") + 1`
