@@ -671,44 +671,44 @@ vary_on_headers(...)
 * arguments to a tag are separated with spaces
 * some of the available tags are:
 
-***
+```python
 
-        autoescape     # turns autoescaping `on` or `off`; block-like
-        block          # identifies a block of code; block-like
-        comment        # comments out multiple lines; block-like
-        csrf_token     # used for CSRF protection (in forms)
-        cycle          # returns one of its arguments each time the tag is encountered
-        debug          # outputs a whole load of debugging information
-        extends        # extends the template of the given name (can be a variable)
-        filter         # filters the contents of the block through one or more filters; block-like
-        firstof        # outputs the first argument variable that is not False
-        for            # for-loop similar to that of Python; reverse-able; block-like; sets forloop.<variable>:
-          counter      # current index, 1-based
-          counter0     # current index, 0-based
-          revcounter   # current reverse index, 1-based
-          revcounter0  # current reverse index, 0-based
-          first        # True if first iteration
-          last         # True if last iteration
-          parentloop   # reference to the enclosing loop
-        for ... empty  # in a for-loop, `empty` clause containing what's to be displayed if the iterable is empty
-        if             # if-statement; clauses: `else`, `elif`; boolean operators: `and`, `or`, `not`;
-                       #   comparison operators: `==`, `!=`, `<`, `>`, `<=`, `>=`, `in`, `not in`; filter-enabled; block-like
-        ifchanged      # checks if a value has changed from the last iteration of a loop; block-like
-        include        # inserts the content of the template of the given name (can be a variable) into the current context
-        load           # loads one or more template tag sets
-        lorem          # displays random "lorem ipsum" text
-        now            # displays the current date and/or time, using a format according to the given string
-        regroup        # regroups a list of alike objects by a common attribute
-        spaceless      # removes whitespace between HTML tags; block-like
-        templatetag    # outputs one of the syntax characters used to compose template tags
-        url            # reverse-resolves a possibly namespaced URL route, optionally taking positional or keywords arguments;
-                       #   namespaces are separated by `:`; the output can be stored in a variable using `as` keyword;
-                       #   rises django.core.urlresolvers.NoReverseMatch on fail
-        verbatim       # stops the template engine from rendering the contents of this block tag; block-like
-        widthratio     # calculates the ratio of a given value to a maximum value, and then applies that ratio to a constant
-        with           # caches a computed variable under another name for repeated use; block-like
+autoescape     # turns autoescaping `on` or `off`; block-like
+block          # identifies a block of code; block-like
+comment        # comments out multiple lines; block-like
+csrf_token     # used for CSRF protection (in forms)
+cycle          # returns one of its arguments each time the tag is encountered
+debug          # outputs a whole load of debugging information
+extends        # extends the template of the given name (can be a variable)
+filter         # filters the contents of the block through one or more filters; block-like
+firstof        # outputs the first argument variable that is not False
+for            # for-loop similar to that of Python; reverse-able; block-like; sets forloop.<variable>:
+  counter      # current index, 1-based
+  counter0     # current index, 0-based
+  revcounter   # current reverse index, 1-based
+  revcounter0  # current reverse index, 0-based
+  first        # True if first iteration
+  last         # True if last iteration
+  parentloop   # reference to the enclosing loop
+for ... empty  # in a for-loop, `empty` clause containing what's to be displayed if the iterable is empty
+if             # if-statement; clauses: `else`, `elif`; boolean operators: `and`, `or`, `not`;
+               #   comparison operators: `==`, `!=`, `<`, `>`, `<=`, `>=`, `in`, `not in`; filter-enabled; block-like
+ifchanged      # checks if a value has changed from the last iteration of a loop; block-like
+include        # inserts the content of the template of the given name (can be a variable) into the current context
+load           # loads one or more template tag sets
+lorem          # displays random "lorem ipsum" text
+now            # displays the current date and/or time, using a format according to the given string
+regroup        # regroups a list of alike objects by a common attribute
+spaceless      # removes whitespace between HTML tags; block-like
+templatetag    # outputs one of the syntax characters used to compose template tags
+url            # reverse-resolves a possibly namespaced URL route, optionally taking positional or keywords arguments;
+               #   namespaces are separated by `:`; the output can be stored in a variable using `as` keyword;
+               #   rises django.core.urlresolvers.NoReverseMatch on fail
+verbatim       # stops the template engine from rendering the contents of this block tag; block-like
+widthratio     # calculates the ratio of a given value to a maximum value, and then applies that ratio to a constant
+with           # caches a computed variable under another name for repeated use; block-like
 
-***
+```
 
 * more available tags are in `i18n`, `l10n`, and `tz` tag sets
 * for modularity and content/code reuse, content/code portions named with `{% block block_name %}` tag in one template can be substituted with the same-named content/code portions present in another template by placing `{% extends "first_template_filename" %}` tag at the very beginning of the second template; this mechanism is known as template inheritance wherein the first template is the parent and the second template is a child
@@ -724,74 +724,74 @@ vary_on_headers(...)
 * numeric filter arguments can be provided unquoted
 * some of the available filters are:
 
-***
+```python
 
-        add                 # arithmetic addition
-        addslashes          # adds slashes before quotes
-        capfirst            # capitalizes the first character of the value
-        center              # centers the value in a field of the given width
-        cut                 # removes all occurrences of the given string
-        date                # formats a date according to the given format
-        default             # if the value evaluates to False, uses the given default
-        default_if_none     # if and only if the value is None, uses the given default
-        dictsort            # takes a list of dictionaries and returns that list sorted by the given key
-        dictsortreversed    # same, only in the reverse order
-        divisibleby         # returns True if the value is divisible by the argument
-        escape              # escapes any special characters in the value, assuming HTML; always applied last
-        escapejs            # escapes any special characters in the value, assuming JavaScript
-        filesizeformat      # formats the value like a human-readable file size
-        first               # returns the first element in a list
-        floatformat         # rounds a floating-point value to one decimal place or custom quantity
-        force_escape        # escapes any special HTML characters in the value immediately where applied
-        get_digit           # returns the requested digit in a number
-        iriencode           # converts an IRI to a string that is suitable for including in a URL
-        join                # joins the elements in a list value with the given string
-        last                # returns the last element in a list
-        length              # for lists and strings, returns the length of the value
-        length_is           # returns True if the value's length is the given argument, or False otherwise
-        linebreaks          # replaces line breaks in a plain text with appropriate HTML, <br /> and <p>
-        linebreaksbr        # converts all newlines in a plain text to <br />
-        linenumbers         # displays text with line numbers
-        ljust               # left-aligns the value in a field of the given width
-        lower               # converts a string into all lowercase
-        make_list           # returns the value turned into a list
-        phone2numeric       # converts a phone number (possibly containing letters) to its numerical equivalent
-        pluralize           # returns a plural suffix if the value is not 1; by default, the suffix is "s"
-        pprint              # a wrapper around pprint.pprint
-        random              # returns a random item from the given list
-        rjust               # right-aligns the value in a field of the given width
-        safe                # marks a string as not requiring further HTML escaping prior to output
-        safeseq             # applies the safe filter to each element of a sequence
-        slice               # returns a slice of the list, e.g. slice:":5"
-        slugify             # slugifies the value
-        stringformat        # formats the value according to the argument, a string formatting specifier
-        time                # formats a time according to the given format
-        timesince           # formats a date as the time since the given date
-        timeuntil           # formats a date as the time until the given date
-        title               # title-cases the value
-        truncatechars       # truncates a string if it is longer than the given number of characters
-        truncatechars_html  # HTML-aware version of truncatechars
-        truncatewords       # truncates a string after a certain number of words
-        truncatewords_html  # HTML-aware version of truncatewords
-        unordered_list      # recursively takes a nested list and returns an HTML unordered list, without <ul>
-        upper               # converts a string into all uppercase
-        urlencode           # escapes a value for use in a URL
-        urlize              # converts URLs and email addresses in text into clickable links
-        urlizetrunc         # converts URLs and email addresses in text into clickable links, with truncation
-        wordcount           # returns the number of words
-        wordwrap            # wraps words at specified line length
-        yesno               # maps values for True, False, and (optionally) None, to the strings "yes", "no", "maybe", or a custom mapping
+add                 # arithmetic addition
+addslashes          # adds slashes before quotes
+capfirst            # capitalizes the first character of the value
+center              # centers the value in a field of the given width
+cut                 # removes all occurrences of the given string
+date                # formats a date according to the given format
+default             # if the value evaluates to False, uses the given default
+default_if_none     # if and only if the value is None, uses the given default
+dictsort            # takes a list of dictionaries and returns that list sorted by the given key
+dictsortreversed    # same, only in the reverse order
+divisibleby         # returns True if the value is divisible by the argument
+escape              # escapes any special characters in the value, assuming HTML; always applied last
+escapejs            # escapes any special characters in the value, assuming JavaScript
+filesizeformat      # formats the value like a human-readable file size
+first               # returns the first element in a list
+floatformat         # rounds a floating-point value to one decimal place or custom quantity
+force_escape        # escapes any special HTML characters in the value immediately where applied
+get_digit           # returns the requested digit in a number
+iriencode           # converts an IRI to a string that is suitable for including in a URL
+join                # joins the elements in a list value with the given string
+last                # returns the last element in a list
+length              # for lists and strings, returns the length of the value
+length_is           # returns True if the value's length is the given argument, or False otherwise
+linebreaks          # replaces line breaks in a plain text with appropriate HTML, <br /> and <p>
+linebreaksbr        # converts all newlines in a plain text to <br />
+linenumbers         # displays text with line numbers
+ljust               # left-aligns the value in a field of the given width
+lower               # converts a string into all lowercase
+make_list           # returns the value turned into a list
+phone2numeric       # converts a phone number (possibly containing letters) to its numerical equivalent
+pluralize           # returns a plural suffix if the value is not 1; by default, the suffix is "s"
+pprint              # a wrapper around pprint.pprint
+random              # returns a random item from the given list
+rjust               # right-aligns the value in a field of the given width
+safe                # marks a string as not requiring further HTML escaping prior to output
+safeseq             # applies the safe filter to each element of a sequence
+slice               # returns a slice of the list, e.g. slice:":5"
+slugify             # slugifies the value
+stringformat        # formats the value according to the argument, a string formatting specifier
+time                # formats a time according to the given format
+timesince           # formats a date as the time since the given date
+timeuntil           # formats a date as the time until the given date
+title               # title-cases the value
+truncatechars       # truncates a string if it is longer than the given number of characters
+truncatechars_html  # HTML-aware version of truncatechars
+truncatewords       # truncates a string after a certain number of words
+truncatewords_html  # HTML-aware version of truncatewords
+unordered_list      # recursively takes a nested list and returns an HTML unordered list, without <ul>
+upper               # converts a string into all uppercase
+urlencode           # escapes a value for use in a URL
+urlize              # converts URLs and email addresses in text into clickable links
+urlizetrunc         # converts URLs and email addresses in text into clickable links, with truncation
+wordcount           # returns the number of words
+wordwrap            # wraps words at specified line length
+yesno               # maps values for True, False, and (optionally) None, to the strings "yes", "no", "maybe", or a custom mapping
 
-        # with django.contrib.humanize activated, {% load humanize %}:
+# with django.contrib.humanize activated, {% load humanize %}:
 
-        apnumber            # for numbers 1-9, returns the number spelled out, otherwise returns the number
-        intcomma            # converts an integer to a string containing commas every three digits
-        intword             # converts a large integer to a friendly text representation
-        naturalday          # for dates that are the current day or within one day, returns "today", "tomorrow" or "yesterday"
-        naturaltime         # for datetime values, returns a string representing how many seconds, minutes or hours away it was
-        ordinal             # converts an integer to its ordinal as a string, e.g. "2nd"
+apnumber            # for numbers 1-9, returns the number spelled out, otherwise returns the number
+intcomma            # converts an integer to a string containing commas every three digits
+intword             # converts a large integer to a friendly text representation
+naturalday          # for dates that are the current day or within one day, returns "today", "tomorrow" or "yesterday"
+naturaltime         # for datetime values, returns a string representing how many seconds, minutes or hours away it was
+ordinal             # converts an integer to its ordinal as a string, e.g. "2nd"
 
-***
+```
 
 ## Static Files
 
@@ -867,30 +867,30 @@ vary_on_headers(...)
 * regardless of how a permission is defined, it is visible and can be referenced globally
 * permissions can be defined in the context of a model:
 
-***
+```python
 
-        class ModelClass(django.db.models.Model):
+class ModelClass(django.db.models.Model):
+    ...
+    class Meta:
+        permissions = (
+            ("permissioncodename", "Permission's description"),
             ...
-            class Meta:
-                permissions = (
-                    ("permissioncodename", "Permission's description"),
-                    ...
-                )
+        )
 
-***
+```
 
 * permissions can also be created dynamically, again, in the context of a model:
 
-***
+```python
 
-        content_type = django.contrib.contenttypes.models.ContentType.objects.get_for_model(
-            ModelClass)
-        permission = Permission.objects.create(
-            codename="permissioncodename",
-            name="Permission's description",
-            content_type=content_type)
+content_type = django.contrib.contenttypes.models.ContentType.objects.get_for_model(
+    ModelClass)
+permission = Permission.objects.create(
+    codename="permissioncodename",
+    name="Permission's description",
+    content_type=content_type)
 
-***
+```
 
 * a call to `has_perm` method is cached on the user/group variable so, for any changes to that permission to become visible, the user/group needs to be re-retrieved
 * Django can be told to use a custom user model by specifying `AUTH_USER_MODEL` settings variable, e.g. `AUTH_USER_MODEL = "subapp.UserClass"` (the class would be located in `models.py` of the subapp)
@@ -910,90 +910,90 @@ vary_on_headers(...)
 * the admin's site is by default located at `/admin/`
 * a database table of a subapp is added to the admin's site by registering the table's model class at the top level of the `admin.py` of the subapp:
 
-***
+```python
 
-        django.contrib.admin.site.register(ModelClass)
+django.contrib.admin.site.register(ModelClass)
 
-***
+```
 
 * a model can be registered with a class derived from `django.contrib.admin.ModelAdmin` to customize the model's appearance with the admin class' attributes:
 
-***
+```python
 
-        class <ModelClass>Admin(django.contrib.admin.ModelAdmin):
-            fields = ["field_name_1", "field_name_2"]  # custom field order
-        django.contrib.admin.site.register(ModelClass, <ModelClass>Admin)
+class <ModelClass>Admin(django.contrib.admin.ModelAdmin):
+    fields = ["field_name_1", "field_name_2"]  # custom field order
+django.contrib.admin.site.register(ModelClass, <ModelClass>Admin)
 
-***
+```
 
-***
+```python
 
-        class <ModelClass>Admin(django.contrib.admin.ModelAdmin):
-            # organize fields into sections
-            # first element of a tuple in the list is section name, second is a dictionary
-            fieldsets = [
-                (None, {"fields": ["field_name_1"]}),
-                ("Section 2 Name", {"fields": ["field_name_2"]}),
-            ]
-        django.contrib.admin.site.register(ModelClass, <ModelClass>Admin)
+class <ModelClass>Admin(django.contrib.admin.ModelAdmin):
+    # organize fields into sections
+    # first element of a tuple in the list is section name, second is a dictionary
+    fieldsets = [
+        (None, {"fields": ["field_name_1"]}),
+        ("Section 2 Name", {"fields": ["field_name_2"]}),
+    ]
+django.contrib.admin.site.register(ModelClass, <ModelClass>Admin)
 
-***
+```
 
-***
+```python
 
-        class <ModelClass>Admin(django.contrib.admin.ModelAdmin):
-            # the second section is initially collapsed
-            fieldsets = [
-                (None, {"fields": ["field_name_1"]}),
-                ("Section 2 Name", {"fields": ["field_name_2"], "classes": ["collapse"]}),
-            ]
-        django.contrib.admin.site.register(ModelClass, <ModelClass>Admin)
+class <ModelClass>Admin(django.contrib.admin.ModelAdmin):
+    # the second section is initially collapsed
+    fieldsets = [
+        (None, {"fields": ["field_name_1"]}),
+        ("Section 2 Name", {"fields": ["field_name_2"], "classes": ["collapse"]}),
+    ]
+django.contrib.admin.site.register(ModelClass, <ModelClass>Admin)
 
-***
+```
 
 * the admin page of a model instance can display related model instances inline, with the help of `django.contrib.admin.StackedInline` or `django.contrib.admin.TabularInline`:
 
-***
+```python
 
-        class <RelatedManyModelClass>Inline(django.contrib.admin.TabularInline):
-            model = RelatedManyModelClass
-            extra = <numextrafields>
-        class <ModelClass>Admin(django.contrib.admin.ModelAdmin):
-            fieldsets = ...
-            inlines = [<RelatedManyModelClass>Inline]
-        django.contrib.admin.site.register(ModelClass, <ModelClass>Admin)
+class <RelatedManyModelClass>Inline(django.contrib.admin.TabularInline):
+    model = RelatedManyModelClass
+    extra = <numextrafields>
+class <ModelClass>Admin(django.contrib.admin.ModelAdmin):
+    fieldsets = ...
+    inlines = [<RelatedManyModelClass>Inline]
+django.contrib.admin.site.register(ModelClass, <ModelClass>Admin)
 
-***
+```
 
 * instead of listing every model instance just by its `__str__`, the admin page of a model can show the values of selected fields for every listed model instance as well as the outputs of selected model methods (as pseudo-fields):
 
-***
+```python
 
-        class <ModelClass>Admin(django.contrib.admin.ModelAdmin):
-            ...
-            list_display = ("field_name_1", "field_name_2", "method_name")
-        django.contrib.admin.site.register(ModelClass, <ModelClass>Admin)
+class <ModelClass>Admin(django.contrib.admin.ModelAdmin):
+    ...
+    list_display = ("field_name_1", "field_name_2", "method_name")
+django.contrib.admin.site.register(ModelClass, <ModelClass>Admin)
 
-***
+```
 
 * for better display of method-based pseudo-fields of model instances on the admin page of a model, the methods can be given attributes in the model's class such as:
 
-***
+```python
 
-        method_name.boolean = True  # if the method's output is bool
-        method_name.short_description = "Column title"
-        method_name.admin_order_field = "associated_field_name_for_column_sorting"
+method_name.boolean = True  # if the method's output is bool
+method_name.short_description = "Column title"
+method_name.admin_order_field = "associated_field_name_for_column_sorting"
 
-***
+```
 
 * filtering and search capabilities can be added to a model's page on the admin site:
 
-***
+```python
 
-        list_filter = ["field_name_1", ...]
-        search_fields = ["field_name_1", ...]
+list_filter = ["field_name_1", ...]
+search_fields = ["field_name_1", ...]
 
-***
+```
 
 * admin model page capabilities include changing list pagination, search boxes, filters, date-hierarchies, column-header-ordering, etc.
 * admin site templates are `base_site.html`, `index.html`, etc.
