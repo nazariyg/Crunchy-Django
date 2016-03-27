@@ -544,23 +544,23 @@ xreadlines()
 * WSGI environment variables can also be found in `environ` attribute of a `django.http.HttpRequest`
 * some attributes and methods of `django.http.HttpResponse` are:
 
-***
+```python
 
-        content
-        charset
-        status_code
-        reason_phrase
-        streaming
-        closed
+content
+charset
+status_code
+reason_phrase
+streaming
+closed
 
-        response[...] = ...     # sets an HTTP header
-        del response[...]       # removes an HTTP header
-        has_header(...)
-        set_cookie(...)
-        set_signed_cookie(...)
-        delete_cookie(...)
+response[...] = ...     # sets an HTTP header
+del response[...]       # removes an HTTP header
+has_header(...)
+set_cookie(...)
+set_signed_cookie(...)
+delete_cookie(...)
 
-***
+```
 
 * the initializer of `django.http.HttpResponse` accepts `content_type` argument for Content-Type header, `status` for the status code, etc.
 * a `django.http.HttpResponse` can be used as a file-like object with corresponding methods
@@ -569,12 +569,12 @@ xreadlines()
 * other `django.http.HttpResponse` subclasses and response-like classes are `JsonResponse` for JSON responses, `StreamingHttpResponse` for streamed responses (not a subclass), `FileResponse` for file streaming (a subclass of `StreamingHttpResponse`)
 * a file attachment for download can be set as follows:
 
-***
+```python
 
-        response = django.http.HttpResponse(file_data, content_type="filetype")
-        response["Content-Disposition"] = 'attachment; filename="..."'
+response = django.http.HttpResponse(file_data, content_type="filetype")
+response["Content-Disposition"] = 'attachment; filename="..."'
 
-***
+```
 
 * all class-based views ultimately inherit from `django.views.generic.View`; in the same module, `RedirectView` is for a simple HTTP redirect, and `TemplateView` extends the base class to make it also render a template
 * in a `urls.py`, a class-based view is converted to a callable with `as_view` method
@@ -592,63 +592,63 @@ xreadlines()
 * some other generic views are `django.views.generic.CreateView`, `UpdateView`, `DeleteView`, etc.
 * the methods of a class-based view can be decorated via overriding `as_view` method in a mixin or by decorating the `dispatch` method:
 
-***
+```python
 
-        class Mixin():
-            @classmethod
-            def as_view(cls, **kwargs):
-                view = super(Mixin, cls).as_view(**kwargs)
-                return decorator(view)
-        class ViewClass(Mixin, ...):
-            ...
+class Mixin():
+    @classmethod
+    def as_view(cls, **kwargs):
+        view = super(Mixin, cls).as_view(**kwargs)
+        return decorator(view)
+class ViewClass(Mixin, ...):
+    ...
 
-***
+```
 
-***
+```python
 
-        class ViewClass(...):
-            @django.utils.decorators.method_decorator(decorator)
-            def dispatch(self, *args, **kwargs):
-                return super(ViewClass, self).dispatch(*args, **kwargs)
-            ...
+class ViewClass(...):
+    @django.utils.decorators.method_decorator(decorator)
+    def dispatch(self, *args, **kwargs):
+        return super(ViewClass, self).dispatch(*args, **kwargs)
+    ...
 
-***
+```
 
 * view decorators:
 
-***
+```python
 
-        # in django.contrib.auth.decorators:
+# in django.contrib.auth.decorators:
 
-        login_required (depends on LOGIN_URL setting)
-        user_passes_test
+login_required (depends on LOGIN_URL setting)
+user_passes_test
 
-        # in django.views.decorators.http:
+# in django.views.decorators.http:
 
-        condition(etag_func=..., last_modified_func=...)
-        etag(...)
-        last_modified(...)
+condition(etag_func=..., last_modified_func=...)
+etag(...)
+last_modified(...)
 
-        # can return django.http.HttpResponseNotAllowed
-        require_http_methods([..., ...])   # HTTP methods should be in uppercase
-        require_safe                       # only GET and HEAD
-        require_GET
-        require_POST
+# can return django.http.HttpResponseNotAllowed
+require_http_methods([..., ...])   # HTTP methods should be in uppercase
+require_safe                       # only GET and HEAD
+require_GET
+require_POST
 
-        # in django.db.transaction
+# in django.db.transaction
 
-        non_atomic_requests                # don't wrap this view into a transaction
+non_atomic_requests                # don't wrap this view into a transaction
 
-        # in django.views.decorators.gzip:
+# in django.views.decorators.gzip:
 
-        gzip_page
+gzip_page
 
-        # in django.views.decorators.vary:
+# in django.views.decorators.vary:
 
-        vary_on_cookie(...)
-        vary_on_headers(...)
+vary_on_cookie(...)
+vary_on_headers(...)
 
-***
+```
 
 ## Templates
 
