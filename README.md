@@ -451,35 +451,35 @@ with django.db.transaction.atomic():
 * when rendering a template, variables are communicated to it by means of a dictionary
 * a more complex way to return a response would be to load and then render a template passing it a request context:
 
-***
+```python
 
-        ...
-        template = django.template.loader.get_template("subappname/template_name.html")
-        context = django.template.RequestContext(request, {
-                "context_var_name": some_local_var,
-            })
-        return django.http.HttpResponse(template.render(context))
+...
+template = django.template.loader.get_template("subappname/template_name.html")
+context = django.template.RequestContext(request, {
+        "context_var_name": some_local_var,
+    })
+return django.http.HttpResponse(template.render(context))
 
-***
+```
 
 * with `django.shortcuts.render`, the above can be reduced to:
 
-***
+```python
 
-        ...
-        return django.shortcuts.render(request, "subappname/template_name.html", {
-                "context_var_name": some_local_var,
-            })
+...
+return django.shortcuts.render(request, "subappname/template_name.html", {
+        "context_var_name": some_local_var,
+    })
 
-***
+```
 
 * with `django.shortcuts.get_object_or_404`, `django.http.Http404` exception is risen automatically if a requested model instance does not exist; same goes for `django.shortcuts.get_list_or_404` if the filter returns an empty list
 
-***
+```python
 
-        django.shortcuts.get_object_or_404(ModelClass, ...)
+django.shortcuts.get_object_or_404(ModelClass, ...)
 
-***
+```
 
 * a view can return a `django.http.HttpResponseRedirect` passing it the target URI (with leading `/`) possibly reverse-resolved with `django.core.urlresolvers.reverse`, e.g. `django.core.urlresolvers.reverse("url_namespace:url_route_name", args=[..., ...], kwargs={...: ..., ...: ...})`
 * there are subclasses of `django.http.HttpResponse` for a number of common HTTP status codes other than 200, e.g. `HttpResponseNotFound`; alternatively, the HTTP status code of the response can be passed to `HttpResponse` with `status` argument, e.g. `HttpResponse(status=201)`
@@ -488,57 +488,57 @@ with django.db.transaction.atomic():
 * any view is passed `django.http.HttpRequest` of the current request as the first positional argument
 * some attributes and methods of `django.http.HttpRequest` are:
 
-***
+```python
 
-        # attributes:
+# attributes:
 
-        user              # the user of the request
-        scheme            # protocol
-        path              # URI (without query string)
-        method            # HTTP method
-        body              # raw HTTP body
-        GET               # GET key-values
-        POST              # POST key-values (without file uploads)
-        COOKIES           # COOKIES key-values
-        FILES             # uploaded files as name-UploadedFile for key-values
-        META              # values of the available HTTP headers and WSGI environment variables:
-          # HTTP headers:
-          HTTP_ACCEPT
-          HTTP_ACCEPT_ENCODING
-          HTTP_ACCEPT_LANGUAGE
-          HTTP_HOST
-          HTTP_REFERER
-          HTTP_USER_AGENT
-          CONTENT_LENGTH  # exception
-          CONTENT_TYPE    # exception
-          ...
-          # other:
-          QUERY_STRING
-          REMOTE_ADDR
-          REMOTE_HOST
-          REMOTE_USER
-          REQUEST_METHOD
-          SERVER_NAME
-          SERVER_PORT
-          ...
-        session           # current session's key-values, writable
-        current_app       # application namespace for URL resolving (e.g. in templates)
-        upload_handlers
+user              # the user of the request
+scheme            # protocol
+path              # URI (without query string)
+method            # HTTP method
+body              # raw HTTP body
+GET               # GET key-values
+POST              # POST key-values (without file uploads)
+COOKIES           # COOKIES key-values
+FILES             # uploaded files as name-UploadedFile for key-values
+META              # values of the available HTTP headers and WSGI environment variables:
+  # HTTP headers:
+  HTTP_ACCEPT
+  HTTP_ACCEPT_ENCODING
+  HTTP_ACCEPT_LANGUAGE
+  HTTP_HOST
+  HTTP_REFERER
+  HTTP_USER_AGENT
+  CONTENT_LENGTH  # exception
+  CONTENT_TYPE    # exception
+  ...
+  # other:
+  QUERY_STRING
+  REMOTE_ADDR
+  REMOTE_HOST
+  REMOTE_USER
+  REQUEST_METHOD
+  SERVER_NAME
+  SERVER_PORT
+  ...
+session           # current session's key-values, writable
+current_app       # application namespace for URL resolving (e.g. in templates)
+upload_handlers
 
-        # methods:
+# methods:
 
-        get_host()        # originating host inferred from various HTTP headers and WSGI info
-        get_full_path()   # URI with query string
-        is_secure()       # `True` if the request was made via HTTPS
-        is_ajax()         # `True` if the request was made with XMLHttpRequest
-        build_absolute_uri(...)
-        get_signed_cookie(...)
-        read(...)
-        readline()
-        readlines()
-        xreadlines()
+get_host()        # originating host inferred from various HTTP headers and WSGI info
+get_full_path()   # URI with query string
+is_secure()       # `True` if the request was made via HTTPS
+is_ajax()         # `True` if the request was made with XMLHttpRequest
+build_absolute_uri(...)
+get_signed_cookie(...)
+read(...)
+readline()
+readlines()
+xreadlines()
 
-***
+```
 
 * with a few exceptions, any HTTP headers in the request are converted to `META` keys by converting all characters to uppercase, replacing any hyphens with underscores and adding an "HTTP_" prefix to the name
 * WSGI environment variables can also be found in `environ` attribute of a `django.http.HttpRequest`
