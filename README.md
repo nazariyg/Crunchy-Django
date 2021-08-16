@@ -2,8 +2,8 @@
 
 * [Installation & Maintenance](Installation%20&%20Maintenance.md)
 * [Imports](Imports.md)
-* [Third-Party Packages](Third-Party Packages.md)
-* [Django REST Framework](Django REST Framework/Django REST Framework.md)
+* [Third-Party Packages](Third-Party%20Packages.md)
+* [Django REST Framework](Django%20REST%20Framework/Django%20REST%20Framework.md)
 
 ***
 
